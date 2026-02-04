@@ -16,7 +16,7 @@ class Task extends Model
 
     protected $fillable = [
         'project_id',
-        'name',
+        'title',
         'description',
         'status',
     ];

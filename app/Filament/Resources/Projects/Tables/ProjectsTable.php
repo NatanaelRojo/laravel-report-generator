@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Projects\Tables;
 
-use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
@@ -20,7 +19,7 @@ class ProjectsTable
             TextColumn::make('name')
                 ->searchable()
                 ->sortable(),
-                ];
+        ];
     }
 
     public static function getFilters(): array

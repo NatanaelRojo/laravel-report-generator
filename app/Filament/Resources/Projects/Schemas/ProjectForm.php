@@ -10,17 +10,17 @@ use Filament\Schemas\Schema;
 class ProjectForm
 {
     public static function getFields(): array
-        {
+    {
         return [
             Select::make('user_id')
                 ->required()
-                ->relationship(table: 'users', titleColumn: 'name')
+                ->relationship(name: 'users', titleAttribute: 'name')
                 ->preload()
                 ->searchable(),
-                TextInput::make('name')
-                    ->required(),
-                Textarea::make('description')
-                    ->columnSpanFull(),
+            TextInput::make('name')
+                ->required(),
+            Textarea::make('description')
+                ->columnSpanFull(),
         ];
     }
 

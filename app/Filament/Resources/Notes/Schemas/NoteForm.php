@@ -8,19 +8,26 @@ use Filament\Schemas\Schema;
 
 class NoteForm
 {
+    public static function getFields(): array
+    {
+        return [
+            Select::make('user_id')
+                ->relationship(name: 'user', titleAttribute: 'name')
+                ->required()
+                ->preload()
+                ->searchable(),
+            Select::make('task_id')
+                ->relationship('task', 'title')
+                ->required(),
+            Textarea::make('content')
+                ->required()
+                ->columnSpanFull(),
+        ];
+    }
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
-            ->components([
-                Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
-                Select::make('task_id')
-                    ->relationship('task', 'title')
-                    ->required(),
-                Textarea::make('content')
-                    ->required()
-                    ->columnSpanFull(),
-            ]);
+            ->components(static::getFields());
     }
 }

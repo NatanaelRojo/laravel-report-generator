@@ -7,7 +7,7 @@ use RectorLaravel\Set\LaravelSetList;
 return RectorConfig::configure()
     // register single rule
     ->withRules([
-        TypedPropertyFromStrictConstructorRector::class
+        TypedPropertyFromStrictConstructorRector::class,
     ])
     // here we can define, what prepared sets of rules will be applied
     ->withPreparedSets(
@@ -15,6 +15,6 @@ return RectorConfig::configure()
         codeQuality: true
     )
     ->withSets([
-                LaravelSetList::LARAVEL_CODE_QUALITY,
+        LaravelSetList::LARAVEL_CODE_QUALITY,
         LaravelSetList::LARAVEL_COLLECTION,
     ]);

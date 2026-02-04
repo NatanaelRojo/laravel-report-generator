@@ -10,47 +10,67 @@ use Filament\Tables\Table;
 
 class TasksTable
 {
+    public static function getColumns(): array
+    {
+        return [
+            TextColumn::make('project.name')
+                ->searchable(),
+            TextColumn::make('user.name')
+                ->searchable(),
+            TextColumn::make('title')
+                ->searchable(),
+            TextColumn::make('status')
+                ->badge()
+                ->searchable(),
+            TextColumn::make('start_date')
+                ->date()
+                ->sortable(),
+            TextColumn::make('end_date')
+                ->date()
+                ->sortable(),
+            TextColumn::make('due_date')
+                ->date()
+                ->sortable(),
+            TextColumn::make('created_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            TextColumn::make('updated_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+        ];
+    }
+
+    public static function getFilters(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getActions(): array
+    {
+        return [
+            EditAction::make(),
+        ];
+    }
+
+    public static function getBulkActions(): array
+    {
+        return [
+            BulkActionGroup::make([
+                DeleteBulkAction::make(),
+            ]),
+        ];
+    }
+
     public static function configure(Table $table): Table
     {
         return $table
-            ->columns([
-                TextColumn::make('project.name')
-                    ->searchable(),
-                TextColumn::make('user.name')
-                    ->searchable(),
-                TextColumn::make('title')
-                    ->searchable(),
-                TextColumn::make('status')
-                    ->badge()
-                    ->searchable(),
-                TextColumn::make('start_date')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('end_date')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('due_date')
-                    ->date()
-                    ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                EditAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->columns(static::getColumns())
+            ->filters(static::getFilters())
+            ->recordActions(static::getActions())
+            ->toolbarActions(static::getBulkActions());
     }
 }

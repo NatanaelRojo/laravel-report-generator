@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         if (! Schema::hasTable('projects')) {
-            Schema::create('projects', function (Blueprint $table) {
+            Schema::create('projects', function (Blueprint $table): void {
                 $table->id();
                 $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
                 $table->string('name');

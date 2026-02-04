@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\Task;
 use App\Enums\TaskStatus;
 use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

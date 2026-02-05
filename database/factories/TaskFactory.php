@@ -24,9 +24,9 @@ class TaskFactory extends Factory
             'name' => $this->faker->sentence(4),
             'description' => $this->faker->paragraph(),
             'status' => $this->faker->randomElement(TaskStatus::valuesToArray()),
-            'start_date' => $this->faker->optional()->date(),
-            'end_date' => $this->faker->optional()->date(),
-            'due_date' => $this->faker->optional()->date(),
+            'start_date' => $this->faker->date(),
+            'end_date' => $this->faker->date(),
+            'due_date' => $this->faker->date(),
         ];
     }
 }

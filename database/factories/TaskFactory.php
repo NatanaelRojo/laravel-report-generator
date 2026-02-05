@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Enums\TaskStatus;
 use App\Models\Project;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,14 +20,18 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
+        $daysToDueDate = $this->faker->numberBetween(1, 30);
+        $startDate = now()->addDays(rand(1, 30));
+
         return [
             'project_id' => Project::factory(),
-            'name' => $this->faker->sentence(4),
+            'user_id' => User::factory(),
+            'title' => $this->faker->sentence(4),
             'description' => $this->faker->paragraph(),
             'status' => $this->faker->randomElement(TaskStatus::valuesToArray()),
-            'start_date' => $this->faker->date(),
-            'end_date' => $this->faker->date(),
-            'due_date' => $this->faker->date(),
+            'start_date' => $startDate,
+            'end_date' => $startDate->copy()->addDays(rand(1, $daysToDueDate)),
+            'due_date' => $startDate->copy()->addDays($daysToDueDate),
         ];
     }
 }

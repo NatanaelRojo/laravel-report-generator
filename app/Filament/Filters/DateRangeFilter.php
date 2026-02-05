@@ -20,12 +20,10 @@ class DateRangeFilter
                     ->schema([
                         DatePicker::make('from')
                             ->label('From')
-                            ->placeholder('Start Date')
-                            ->native(false), // Optional: makes it look better
+                            ->placeholder('Start Date'),
                         DatePicker::make('to')
                             ->label('To')
-                            ->placeholder('End Date')
-                            ->native(false),
+                            ->placeholder('End Date'),
                     ])
                     ->columns(1),
             ])
@@ -44,20 +42,20 @@ class DateRangeFilter
                 function (array $data) use ($label): array {
                     return self::getIndicators($data, $label);
                 }
-                );
+            );
     }
 
     private static function getIndicators(array $data, string $label): array
-{
-                $indicators = [];
-                
-                if ($data['from'] ?? null) {
-                    $indicators[] = "{$label} from ".Carbon::parse($data['from'])->toFormattedDateString();
-                }
-                if ($data['to'] ?? null) {
-                    $indicators[] = "{$label} to ".Carbon::parse($data['to'])->toFormattedDateString();
-                }
+    {
+        $indicators = [];
 
-                return $indicators;
-            }
+        if ($data['from'] ?? null) {
+            $indicators[] = "{$label} from ".Carbon::parse($data['from'])->toFormattedDateString();
+        }
+        if ($data['to'] ?? null) {
+            $indicators[] = "{$label} to ".Carbon::parse($data['to'])->toFormattedDateString();
+        }
+
+        return $indicators;
+    }
 }

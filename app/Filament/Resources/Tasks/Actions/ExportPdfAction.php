@@ -16,22 +16,23 @@ class ExportPdfAction
             ->icon('heroicon-o-document-arrow-down')
             ->color('success')
             ->action(function (ListTasks $livewire): void {
-                    $query = $livewire->getFilteredTableQuery();
-                    $taskIds = $query->pluck('id')->toArray();
+                $query = $livewire->getFilteredTableQuery();
+                $taskIds = $query->pluck('id')->toArray();
 
-                                        if (count($taskIds) === 0) {
-    Notification::make()
-        ->warning()->title('No tasks found')->send();
-    return;
-}
+                if (count($taskIds) === 0) {
+                    Notification::make()
+                        ->warning()->title('No tasks found')->send();
 
-                    ExportTasksPdf::dispatch(auth()->user(), $taskIds);
+                    return;
+                }
 
-        Notification::make()
-            ->title('Export started')
-            ->body('We will notify you when the file is ready.')
-            ->info()
-            ->send();
+                ExportTasksPdf::dispatch(auth()->user(), $taskIds);
+
+                Notification::make()
+                    ->title('Export started')
+                    ->body('We will notify you when the file is ready.')
+                    ->info()
+                    ->send();
             });
     }
 }

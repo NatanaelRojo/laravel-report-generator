@@ -2,15 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Models\User;
 use App\Models\Task;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions\Action as ActionsAction;
 use Filament\Notifications\Notification;
-use Filament\Notifications\Actions\Action;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -32,9 +30,9 @@ class ExportTasksPdf implements ShouldQueue
             ->get();
 
         $pdf = Pdf::loadView('pdf.tasks-report', ['records' => $records]);
-        
+
         // 3. Save it to a temporary public disk
-        $fileName = 'reports/tasks-' . now()->timestamp . '.pdf';
+        $fileName = 'reports/tasks-'.now()->timestamp.'.pdf';
         Storage::disk('public')->put($fileName, $pdf->output());
 
         Notification::make()
@@ -44,7 +42,7 @@ class ExportTasksPdf implements ShouldQueue
             ->actions([
                 ActionsAction::make('download')
                     ->button()
-                    ->url(Storage::url($fileName), shouldOpenInNewTab: true)
+                    ->url(Storage::url($fileName), shouldOpenInNewTab: true),
             ])
             ->sendToDatabase($this->user); // <--- Key magic here
     }

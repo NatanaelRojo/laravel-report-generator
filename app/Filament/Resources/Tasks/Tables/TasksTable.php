@@ -7,13 +7,9 @@ use App\Filament\Filters\ProjectFilter;
 use App\Filament\Filters\TaskStatusFilter;
 use App\Filament\Filters\UserFilter;
 use App\Filament\Resources\Tasks\Actions\ExportPdfAction;
-use App\Jobs\ExportTasksPdf;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
@@ -64,7 +60,7 @@ class TasksTable
         ];
     }
 
-        public static function getHeaderActions(): array
+    public static function getHeaderActions(): array
     {
         return [
             ExportPdfAction::make(),

@@ -6,6 +6,7 @@ use App\Filament\Filters\DateRangeFilter;
 use App\Filament\Filters\ProjectFilter;
 use App\Filament\Filters\TaskStatusFilter;
 use App\Filament\Filters\UserFilter;
+use App\Filament\Resources\Tasks\Actions\ExportPdfAction;
 use App\Jobs\ExportTasksPdf;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions\Action;
@@ -66,33 +67,7 @@ class TasksTable
         public static function getHeaderActions(): array
     {
         return [
-            Action::make('export_pdf')
-                ->label('Download PDF')
-                ->icon('heroicon-o-document-arrow-down')
-                ->color('success')
-                ->action(function ($livewire) {
-                    // A. Capture the query with the current filters applied
-                    $query = $livewire->getFilteredTableQuery();
-                    
-                    // B. Get the data (eager load relationships for performance)
-                    $ids = $query->pluck('id')->toArray();
-
-                                        if (count($ids) === 0) {
-    Notification::make()
-        ->warning()->title('No tasks found')->send();
-    return;
-}
-
-                    // C. Generate the PDF
-                    ExportTasksPdf::dispatch(auth()->user(), $ids);
-
-                    // D. Stream the download
-        Notification::make()
-            ->title('Export started')
-            ->body('We will notify you when the file is ready.')
-            ->info()
-            ->send();
-            }),
+            ExportPdfAction::make(),
         ];
     }
 

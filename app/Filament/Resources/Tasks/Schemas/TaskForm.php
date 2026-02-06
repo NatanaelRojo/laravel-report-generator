@@ -27,7 +27,7 @@ class TaskForm
             Textarea::make('description')
                 ->columnSpanFull(),
             Select::make('status')
-                ->options(TaskStatus::class)
+                ->options(TaskStatus::getArrayForFilamentSelector())
                 ->default(TaskStatus::PENDING->value)
                 ->required(),
             DatePicker::make('start_date'),

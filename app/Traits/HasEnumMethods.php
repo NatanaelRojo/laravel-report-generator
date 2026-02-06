@@ -13,4 +13,13 @@ trait HasEnumMethods
     {
         return array_column(self::cases(), 'value');
     }
+
+    public static function getArrayForFilamentSelector(): array
+    {
+        $options = [];
+        foreach (self::cases() as $case) {
+            $options[$case->value] = $case->value;
+        }
+        return $options;
+    }
 }

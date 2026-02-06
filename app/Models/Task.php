@@ -29,6 +29,9 @@ class Task extends Model
     {
         return [
             'status' => EnumsTaskStatus::class,
+            'start_date' => 'date',
+            'end_date' => 'date',
+            'due_date' => 'date',
         ];
     }
 

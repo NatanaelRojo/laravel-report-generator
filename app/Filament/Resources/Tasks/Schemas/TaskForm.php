@@ -31,6 +31,9 @@ class TaskForm
                 ->options(TaskStatus::getArrayForFilamentSelector())
                 ->default(TaskStatus::PENDING->value)
                 ->required(),
+            TextInput::make('verification_link')
+                ->url()
+                ->columnSpanFull(),
             DatePicker::make('start_date'),
             DatePicker::make('end_date'),
             DatePicker::make('due_date'),

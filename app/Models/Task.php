@@ -20,6 +20,7 @@ class Task extends Model
         'title',
         'description',
         'status',
+        'verification_link',
         'start_date',
         'end_date',
         'due_date',

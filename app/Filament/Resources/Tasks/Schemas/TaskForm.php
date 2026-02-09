@@ -21,7 +21,8 @@ class TaskForm
                 ->relationship('user', 'name')
                 ->required()
                 ->preload()
-                ->searchable(),
+                ->searchable()
+                ->default(auth()->id()),
             TextInput::make('title')
                 ->required(),
             Textarea::make('description')

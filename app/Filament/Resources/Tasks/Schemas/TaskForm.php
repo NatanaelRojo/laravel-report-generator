@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Tasks\Schemas;
 
 use App\Enums\TaskStatus;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -31,9 +32,18 @@ class TaskForm
                 ->options(TaskStatus::getArrayForFilamentSelector())
                 ->default(TaskStatus::PENDING->value)
                 ->required(),
-            TextInput::make('verification_link')
-                ->url()
-                ->columnSpanFull(),
+                Repeater::make('verification_links')
+                ->schema([
+                    TextInput::make('url')
+                    ->prefixIcon('heroicon-m-link')
+                        ->label('Verification Link')
+                        ->url()
+                        ->required(),
+                ])
+                ->label('Verification Links')
+                ->columns(2)
+                ->columnSpanFull()
+                ->createItemButtonLabel('Add Verification Link'),
             DatePicker::make('start_date'),
             DatePicker::make('end_date'),
             DatePicker::make('due_date'),

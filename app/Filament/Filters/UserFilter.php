@@ -11,6 +11,7 @@ class UserFilter
         return SelectFilter::make('user_id')
             ->relationship('user', 'name')
             ->preload()
-            ->searchable();
+            ->searchable()
+            ->default(auth()->id());
     }
 }

@@ -10,9 +10,9 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        if (!Schema::hasColumn('tasks', 'verification_link')) {
+        if (!Schema::hasColumn('tasks', 'verification_links')) {
             Schema::table('tasks', function (Blueprint $table) {
-                $table->string('verification_link')->nullable()->after('status');
+                $table->json('verification_links')->nullable()->after('status');
             });
         }
     }
@@ -23,7 +23,7 @@ return new class () extends Migration {
     public function down(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->dropColumn('verification_link');
+            $table->dropColumn('verification_links');
         });
     }
 };

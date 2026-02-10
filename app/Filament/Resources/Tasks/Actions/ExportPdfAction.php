@@ -16,13 +16,9 @@ class ExportPdfAction
             ->icon('heroicon-o-document-arrow-down')
             ->color('success')
             ->action(function (ListTasks $livewire): void {
-                $query = $livewire->getFilteredTableQuery();
-                $taskIds = $query->pluck('id')->toArray();
+                $taskIds = self::validateTaskFilters($livewire);
 
-                if (count($taskIds) === 0) {
-                    Notification::make()
-                        ->warning()->title('No tasks found')->send();
-
+                if (!$taskIds) {
                     return;
                 }
 
@@ -35,4 +31,44 @@ class ExportPdfAction
                     ->send();
             });
     }
+
+protected static function validateTaskFilters(ListTasks $livewire): ?array
+{
+                    $filterData = $livewire->tableFilters;
+
+                $projectId = $filterData['project_id']['value'] ?? null;
+                $userId = $filterData['user_id']['value'] ?? null;
+
+                if (empty($userId)) {
+                    Notification::make()
+                        ->title('Action Required')
+                        ->body('Please select a Developer in the filters before exporting.')
+                        ->warning()
+                        ->send();
+
+                    return null;
+                }
+
+                if (empty($projectId)) {
+                    Notification::make()
+                        ->title('Action Required')
+                        ->body('Please select a Project in the filters before exporting.')
+                        ->warning()
+                        ->send();
+
+                    return null;
+                }
+
+                $query = $livewire->getFilteredTableQuery();
+                $taskIds = $query->pluck('id')->toArray();
+
+                if (count($taskIds) === 0) {
+                    Notification::make()
+                        ->warning()->title('No tasks found')->send();
+
+                    return null;
+                }
+
+                return $taskIds;
+}
 }

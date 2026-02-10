@@ -29,7 +29,10 @@ class ExportTasksPdf implements ShouldQueue
             ->with(['project', 'user'])
             ->get();
 
-        $pdf = Pdf::loadView('pdf.tasks-report', ['records' => $records]);
+        $pdf = Pdf::loadView('pdf.tasks-report', [
+            'records' => $records,
+            'user' => $this->user,
+        ]);
 
         // 3. Save it to a temporary public disk
         $fileName = 'reports/tasks-'.now()->timestamp.'.pdf';

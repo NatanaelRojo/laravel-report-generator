@@ -20,7 +20,7 @@ class Task extends Model
         'title',
         'description',
         'status',
-        'verification_link',
+        'verification_links',
         'start_date',
         'end_date',
         'due_date',
@@ -32,6 +32,7 @@ class Task extends Model
             'start_date' => 'date',
             'end_date' => 'date',
             'due_date' => 'date',
+            'verification_links' => 'array',
         ];
     }
 

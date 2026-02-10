@@ -29,7 +29,7 @@ class TaskFactory extends Factory
             'title' => $this->faker->sentence(4),
             'description' => $this->faker->paragraph(),
             'status' => $this->faker->randomElement(TaskStatus::valuesToArray()),
-                        'verification_links' => collect(range(1, rand(1, 3)))->map(fn() => [
+            'verification_links' => collect(range(1, rand(1, 3)))->map(fn () => [
                 'url' => $this->faker->url(),
             ])->toArray(),
             'start_date' => $startDate,

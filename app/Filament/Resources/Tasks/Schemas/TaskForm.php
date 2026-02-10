@@ -32,10 +32,10 @@ class TaskForm
                 ->options(TaskStatus::getArrayForFilamentSelector())
                 ->default(TaskStatus::PENDING->value)
                 ->required(),
-                Repeater::make('verification_links')
+            Repeater::make('verification_links')
                 ->schema([
                     TextInput::make('url')
-                    ->prefixIcon('heroicon-m-link')
+                        ->prefixIcon('heroicon-m-link')
                         ->label('Verification Link')
                         ->url()
                         ->required(),

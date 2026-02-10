@@ -18,7 +18,7 @@ class ExportPdfAction
             ->action(function (ListTasks $livewire): void {
                 $taskIds = self::validateTaskFilters($livewire);
 
-                if (!$taskIds) {
+                if (! $taskIds) {
                     return;
                 }
 
@@ -32,43 +32,43 @@ class ExportPdfAction
             });
     }
 
-protected static function validateTaskFilters(ListTasks $livewire): ?array
-{
-                    $filterData = $livewire->tableFilters;
+    protected static function validateTaskFilters(ListTasks $livewire): ?array
+    {
+        $filterData = $livewire->tableFilters;
 
-                $projectId = $filterData['project_id']['value'] ?? null;
-                $userId = $filterData['user_id']['value'] ?? null;
+        $projectId = $filterData['project_id']['value'] ?? null;
+        $userId = $filterData['user_id']['value'] ?? null;
 
-                if (empty($userId)) {
-                    Notification::make()
-                        ->title('Action Required')
-                        ->body('Please select a Developer in the filters before exporting.')
-                        ->warning()
-                        ->send();
+        if (empty($userId)) {
+            Notification::make()
+                ->title('Action Required')
+                ->body('Please select a Developer in the filters before exporting.')
+                ->warning()
+                ->send();
 
-                    return null;
-                }
+            return null;
+        }
 
-                if (empty($projectId)) {
-                    Notification::make()
-                        ->title('Action Required')
-                        ->body('Please select a Project in the filters before exporting.')
-                        ->warning()
-                        ->send();
+        if (empty($projectId)) {
+            Notification::make()
+                ->title('Action Required')
+                ->body('Please select a Project in the filters before exporting.')
+                ->warning()
+                ->send();
 
-                    return null;
-                }
+            return null;
+        }
 
-                $query = $livewire->getFilteredTableQuery();
-                $taskIds = $query->pluck('id')->toArray();
+        $query = $livewire->getFilteredTableQuery();
+        $taskIds = $query->pluck('id')->toArray();
 
-                if (count($taskIds) === 0) {
-                    Notification::make()
-                        ->warning()->title('No tasks found')->send();
+        if (count($taskIds) === 0) {
+            Notification::make()
+                ->warning()->title('No tasks found')->send();
 
-                    return null;
-                }
+            return null;
+        }
 
-                return $taskIds;
-}
+        return $taskIds;
+    }
 }

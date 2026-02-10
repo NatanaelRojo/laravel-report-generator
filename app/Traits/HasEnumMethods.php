@@ -20,6 +20,7 @@ trait HasEnumMethods
         foreach (self::cases() as $case) {
             $options[$case->value] = $case->value;
         }
+
         return $options;
     }
 }

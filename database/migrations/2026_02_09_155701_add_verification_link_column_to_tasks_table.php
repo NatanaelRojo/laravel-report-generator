@@ -4,13 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        if (!Schema::hasColumn('tasks', 'verification_links')) {
+        if (! Schema::hasColumn('tasks', 'verification_links')) {
             Schema::table('tasks', function (Blueprint $table) {
                 $table->json('verification_links')->nullable()->after('status');
             });
